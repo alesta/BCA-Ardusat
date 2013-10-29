@@ -17,6 +17,7 @@ void setup()
 	Serial.begin(1152000);
 	Wire.begin();
 	Control.init(CYCLE);
+	Serial.println("Tube, cpm, uSv/h");
 }
 
 void loop()
@@ -38,5 +39,13 @@ void flush_buffer()
 
 void log_geiger_data()
 {
-	
+	for(int i = 1; i < 2; i++)
+	{
+		Serial.print(i);
+		Serial.print(",");
+		Serial.print(geiger.getCPM(i));
+		Serial.print(",");
+		Serial.print(geiger.getUSPH(i), 4);
+		Serial.print("\n");
+	}
 }
