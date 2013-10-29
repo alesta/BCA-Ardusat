@@ -16,6 +16,7 @@ typedef struct Control {
 	uint32_t itvl;
 
 	void init();
+	void init(uint32_t itvl);
 	void init(uint32_t curr, uint32_t prev, uint32_t itvl);
 	void change(uint32_t val, control_val_t tar);
 	void update();

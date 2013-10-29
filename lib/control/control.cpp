@@ -9,6 +9,13 @@ void Control::init()
 	this.itvl = 0;
 }
 
+void Control::init(uint32_t itvl)
+{
+	this.curr = 0;
+	this.prev = 0;
+	this.itvl = itvl;
+}
+
 void Control::init(uint32_t curr, uint32_t prev, uint32_t itvl)
 {
 	this.curr = curr;
