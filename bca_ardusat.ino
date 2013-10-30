@@ -3,11 +3,14 @@
 #include <I2C_add.h>
 #include <EEPROM.h>
 #include "SAT_Geiger.h"
-#include "lib/control.h"
+#include "SAT_AppStorage.h"
+#include "lib/control/control.h"
+#include "lib/stringify/stringify.h
 
 #define CYCLE 2000
 
-SAT_Geiger geiger;
+SAT_Geiger Geiger;
+SAT_AppStorage Storage;
 
 void flush_buffer();
 void log_geiger_data();
@@ -17,7 +20,7 @@ void setup()
 	Serial.begin(1152000);
 	Wire.begin();
 	Control.init(CYCLE);
-	Serial.println("Tube, cpm, uSv/h");
+	Storage.send("Tube,cpm,uSv/h");
 }
 
 void loop()
@@ -41,11 +44,11 @@ void log_geiger_data()
 {
 	for(int i = 1; i < 2; i++)
 	{
-		Serial.print(i);
-		Serial.print(",");
-		Serial.print(geiger.getCPM(i));
-		Serial.print(",");
-		Serial.print(geiger.getUSPH(i), 4);
-		Serial.print("\n");
+		Storage.send(stringify<int>(i, false);
+		Storage.send(",");
+		Storage.send(stringify<int>(Geiger.getCPM(i), false));
+		Storage.send(",");
+		Storage.send(stringify<float>(Geiger.getUSPH(i), true));
+		Storage.send("\n");
 	}
 }
