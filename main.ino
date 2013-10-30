@@ -5,7 +5,7 @@
 #include "SAT_Geiger.h"
 #include "SAT_AppStorage.h"
 #include "lib/control/control.h"
-#include "lib/stringify/stringify.h
+#include "lib/stringify/stringify.h"
 
 #define CYCLE 2000
 
