@@ -17,7 +17,6 @@ void log_geiger_data();
 
 void setup()
 {
-	Serial.begin(1152000);
 	Wire.begin();
 	Control.init(CYCLE);
 	Storage.send("Tube,cpm,uSv/h");
