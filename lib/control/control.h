@@ -1,7 +1,7 @@
 #ifndef CONTROL_H
 #define CONTROL_H
 
-#include <inttypes.h>
+#include <stdint.h>
 #include "Arduino.h"
 
 typedef enum {
