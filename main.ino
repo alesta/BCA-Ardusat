@@ -18,7 +18,7 @@ void log_geiger_data();
 void setup()
 {
 	Wire.begin();
-	init_control(millis(), CYCLE);
+	init_control(millis, CYCLE);
 	Storage.send("Tube,cpm,uSv/h");
 }
 
