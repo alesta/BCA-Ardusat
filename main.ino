@@ -4,7 +4,7 @@
 #include <EEPROM.h>
 #include "SAT_Geiger.h"
 #include "SAT_AppStorage.h"
-#include "lib/control/new/control.h"
+#include "lib/control/newer/control-v2.h"
 #include "lib/stringify/stringify.h"
 
 #define CYCLE 2000
@@ -12,20 +12,22 @@
 SAT_Geiger Geiger;
 SAT_AppStorage Storage;
 
+Control_t GeigerControl;
+
 void flush_buffer();
 void log_geiger_data();
 
 void setup()
 {
 	Wire.begin();
-	init_control(millis, CYCLE);
+	GeigerControl = new_control(millis, CYCLE);
 	Storage.send("Tube,cpm,uSv/h");
 }
 
 void loop()
 {
 	flush_buffer();
-	if(Control.update())
+	if(update(&GeigerControl))
 	{
 		log_geiger_data();
 	}
