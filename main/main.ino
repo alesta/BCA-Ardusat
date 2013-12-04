@@ -13,14 +13,22 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <Wire.h>
-#include <I2C_Conv.h>
-#include <I2C_add.h>
+#include <control-v2.h>
 #include <EEPROM.h>
-#include "SAT_Geiger.h"
-#include "SAT_AppStorage.h"
-#include "lib/control/newer/control-v2.h"
-#include "lib/stringify/stringify.h"
+#include <I2C_add.h>
+#include <I2C_Conv.h>
+#include <nanosat_message.h>
+#include <OnboardCommLayer.h>
+#include <SAT_Accel.h>
+#include <SAT_AppStorage.h>
+#include <SAT_Geiger.h>
+#include <SAT_InfraTherm.h>
+#include <SAT_Lum.h>
+#include <SAT_Mag.h>
+#include <SAT_Spectro.h>
+#include <SAT_Temp.h>
+#include <stringify.h>
+#include <Wire.h>
 
 #define CYCLE 2000
 
@@ -29,8 +37,8 @@ SAT_AppStorage Storage;
 
 Control_t GeigerControl;
 
-void flush_buffer();
-void log_geiger_data();
+void flush_buffer(void);
+void log_geiger_data(void);
 
 void setup()
 {
@@ -48,7 +56,7 @@ void loop()
 	}
 }
 
-void flush_buffer()
+void flush_buffer(void)
 {
 	while(Wire.available())
 	{
@@ -56,11 +64,11 @@ void flush_buffer()
 	}
 }
 
-void log_geiger_data()
+void log_geiger_data(void)
 {
 	for(int i = 1; i < 2; i++)
 	{
-		Storage.send(stringify<int>(i, false);
+		Storage.send(stringify<int>(i, false));
 		Storage.send(",");
 		Storage.send(stringify<int>(Geiger.getCPM(i), false));
 		Storage.send(",");
