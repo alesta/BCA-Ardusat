@@ -22,11 +22,6 @@
 #include <SAT_Accel.h>
 #include <SAT_AppStorage.h>
 #include <SAT_Geiger.h>
-#include <SAT_InfraTherm.h>
-#include <SAT_Lum.h>
-#include <SAT_Mag.h>
-#include <SAT_Spectro.h>
-#include <SAT_Temp.h>
 #include <stringify.h>
 #include <Wire.h>
 
@@ -57,7 +52,7 @@ void loop()
 }
 
 void flush_buffer(void)
-
+{
 	while(Wire.available())
 	{
 		Wire.read();
