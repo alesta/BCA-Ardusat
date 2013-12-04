@@ -17,10 +17,10 @@
 #include <I2C_Conv.h>
 #include <I2C_add.h>
 #include <EEPROM.h>
-#include "SAT_Geiger.h"
-#include "SAT_AppStorage.h"
-#include "lib/control/newer/control-v2.h"
-#include "lib/stringify/stringify.h"
+#include "../include/SAT_Geiger.h"
+#include "../include/SAT_AppStorage.h"
+#include "../include/control-v2.h"
+#include "../include/stringify.h"
 
 #define CYCLE 2000
 
