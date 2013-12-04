@@ -13,17 +13,17 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <control-v2.h>
+#include <Wire.h>
 #include <EEPROM.h>
 #include <I2C_add.h>
 #include <I2C_Conv.h>
-#include <nanosat_message.h>
-#include <OnboardCommLayer.h>
-#include <SAT_Accel.h>
-#include <SAT_AppStorage.h>
-#include <SAT_Geiger.h>
-#include <stringify.h>
-#include <Wire.h>
+#include "nanosat_message.h"
+#include "OnboardCommLayer.h"
+#include "SAT_Accel.h"
+#include "SAT_AppStorage.h"
+#include "SAT_Geiger.h"
+
+#include "control.h"
 
 #define CYCLE 2000
 
@@ -63,11 +63,11 @@ void log_geiger_data(void)
 {
 	for(int i = 1; i < 2; i++)
 	{
-		Storage.send(stringify<int>(i, false);
+		Storage.send(i);
 		Storage.send(",");
-		Storage.send(stringify<int>(Geiger.getCPM(i), false));
+		Storage.send(Geiger.getCPM(i));
 		Storage.send(",");
-		Storage.send(stringify<float>(Geiger.getUSPH(i), true));
+		Storage.send(Geiger.getUSPH(i));
 		Storage.send("\n");
 	}
 }
