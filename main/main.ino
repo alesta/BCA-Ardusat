@@ -15,7 +15,6 @@
 
 #include <control-v2.h>
 #include <EEPROM.h>
-<<<<<<< HEAD
 #include <I2C_add.h>
 #include <I2C_Conv.h>
 #include <nanosat_message.h>
@@ -30,12 +29,6 @@
 #include <SAT_Temp.h>
 #include <stringify.h>
 #include <Wire.h>
-=======
-#include "../include/SAT_Geiger.h"
-#include "../include/SAT_AppStorage.h"
-#include "../include/control-v2.h"
-#include "../include/stringify.h"
->>>>>>> 1c10586cdf1be0a7505be57303eaa242d2a11a22
 
 #define CYCLE 2000
 
