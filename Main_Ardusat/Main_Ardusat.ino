@@ -13,14 +13,22 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include <control-v2.h>
+#include <EEPROM.h>
+#include <I2C_add.h>
+#include <I2C_Conv.h>
+#include <nanosat_message.h>
+#include <OnboardCommLayer.h>
+#include <SAT_Accel.h>
+#include <SAT_AppStorage.h>
+#include <SAT_Geiger.h>
+#include <SAT_InfraTherm.h>
+#include <SAT_Lum.h>
+#include <SAT_Mag.h>
+#include <SAT_Spectro.h>
+#include <SAT_Temp.h>
+#include <stringify.h>
 #include <Wire.h>
-#include "../include/EEPROM.h"
-#include "../include/I2C_Conv.h"
-#include "../include/I2C_add.h"
-#include "../include/SAT_Geiger.h"
-#include "../include/SAT_AppStorage.h"
-#include "../include/control.h"
-#include "../include/stringify.h"
 
 #define CYCLE 2000
 
@@ -49,7 +57,7 @@ void loop()
 }
 
 void flush_buffer(void)
-{
+
 	while(Wire.available())
 	{
 		Wire.read();
@@ -68,3 +76,4 @@ void log_geiger_data(void)
 		Storage.send("\n");
 	}
 }
+
