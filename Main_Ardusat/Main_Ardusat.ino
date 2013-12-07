@@ -57,7 +57,7 @@ void loop()
 }
 
 void flush_buffer(void)
-
+{
 	while(Wire.available())
 	{
 		Wire.read();
