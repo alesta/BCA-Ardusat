@@ -13,6 +13,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include <stdio.h>
 #include <Wire.h>
 #include <EEPROM.h>
 #include <I2C_add.h>
@@ -39,7 +40,7 @@ void setup()
 {
 	Wire.begin();
 	GeigerControl = new_control(millis, CYCLE);
-	Storage.send("Tube,cpm,uSv/h");
+	Storage.send("Tube,cpm,uSv/h\n");
 }
 
 void loop()
@@ -61,14 +62,18 @@ void flush_buffer(void)
 
 void log_geiger_data(void)
 {
-	for(int i = 1; i < 2; i++)
+	for(int i = 1; i <= 2; i++)
 	{
-		Storage.send(i);
+		char * buffer = (char*) malloc(sizeof(char) * 17);
+		snprintf(buffer, 17, "%d", i);
+		Storage.send(buffer);
 		Storage.send(",");
-		Storage.send(Geiger.getCPM(i));
+		snprintf(buffer, 17, "%d", Geiger.getCPM(i));
+		Storage.send(buffer);
 		Storage.send(",");
-		Storage.send(Geiger.getUSPH(i));
+		snprintf(buffer, 17, "%f", Geiger.getCPM(i));
+		Storage.send(buffer);
 		Storage.send("\n");
+		free(buffer);
 	}
 }
-
