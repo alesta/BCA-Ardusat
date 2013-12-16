@@ -13,18 +13,20 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <stdio.h>
-#include <Wire.h>
+#include <control.h>
 #include <EEPROM.h>
 #include <I2C_add.h>
 #include <I2C_Conv.h>
-#include "nanosat_message.h"
-#include "OnboardCommLayer.h"
-#include "SAT_Accel.h"
-#include "SAT_AppStorage.h"
-#include "SAT_Geiger.h"
-
-#include "control.h"
+#include <nanosat_message.h>
+#include <OnboardCommLayer.h>
+#include <SAT_AppStorage.h>
+#include <SAT_Geiger.h>
+#include <SAT_InfraTherm.h>
+#include <SAT_Lum.h>
+#include <SAT_Mag.h>
+#include <SAT_Temp.h>
+#include <Wire.h>
+#include <stdio.h>
 
 #define CYCLE 2000
 
