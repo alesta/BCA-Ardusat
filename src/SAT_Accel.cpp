@@ -1,7 +1,7 @@
 #include "SAT_Accel.h"
 #include <SPI.h>
 
-SAT_Accel::Sat_Accel() {
+SAT_Accel::SAT_Accel() {
   SPI.begin();
   //Configure the SPI connection for the ADXL345.
   SPI.setDataMode(SPI_MODE3);
