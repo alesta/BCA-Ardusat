@@ -8,7 +8,7 @@ http://www.kickstarter.com/projects/575960623/ardusat-your-arduino-experiment-in
 
 To build
 --------
-We recommend using <a href="inotool.org">ino</a> to build from the command line.  Use this command to build:
+We recommend using <a href="http://www.inotool.org">ino</a> to build from the command line.  Use this command to build:
 
     ino build -m robotControl
 
