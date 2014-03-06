@@ -20,39 +20,39 @@
 #include <nanosat_message.h>
 #include <OnboardCommLayer.h>
 #include <SAT_AppStorage.h>
-#include <SAT_Geiger.h>
-#include <SAT_InfraTherm.h>
-#include <SAT_Lum.h>
+#include <SAT_Accel.h>
 #include <SAT_Mag.h>
-#include <SAT_Temp.h>
 #include <Wire.h>
 #include <stdio.h>
 
 #define CYCLE 2000
 
-#define CYCLE 2000
-
-SAT_Geiger Geiger;
+SAT_Mag Magno;
 SAT_AppStorage Storage;
+SAT_Accel Accel;
 
-Control_t GeigerControl;
+Control_t MagnoControl;
 
 void flush_buffer(void);
-void log_geiger_data(void);
+void log_magno_data(void);
 
 void setup()
 {
 	Wire.begin();
-	GeigerControl = new_control(millis, CYCLE);
-	Storage.send("Tube,cpm,uSv/h\n");
+	Magno.configMag();
+	Accel.powerOn();
+	
+	MagnoControl = new_control(millis, CYCLE);
+	// Time, Velocity x, Velocity y, Velocity z, Altitude, Magnetometer x, Magnetometer y, Magnetometer z
+	Storage.send("t,vx,vy,vz,alt,magx,magy,magz");
 }
 
 void loop()
 {
 	flush_buffer();
-	if(update(&GeigerControl))
+	if(update(&MagnoControl))
 	{
-		log_geiger_data();
+		log_magno_data();
 	}
 }
 
@@ -64,20 +64,43 @@ void flush_buffer(void)
 	}
 }
 
-void log_geiger_data(void)
+/*
+ * Logs the collected data to file.  Keep in mind that the maximum file size for a given experiment is 10kb.
+ *  
+ * Data points required for these measurements:
+ * 1. Time
+ * 2. Velocity x,y,z
+ * 3. Altitude
+ * 4. Magnetometer x,y,z
+ */
+void log_magno_data(void)
 {
-	for(int i = 1; i <= 2; i++)
-	{
-		char * buffer = (char*) malloc(sizeof(char) * 16);
-		snprintf(buffer, 16, "%d", i);
-		Storage.send(buffer);
-		Storage.send(",");
-		snprintf(buffer, 16, "%d", Geiger.getCPM(i));
-		Storage.send(buffer);
-		Storage.send(",");
-		snprintf(buffer, 16, "%f", Geiger.getCPM(i));
-		Storage.send(buffer);
-		Storage.send("\n");
-		free(buffer);
-	}
+	char * buffer = (char*) malloc(sizeof(char) * 16);
+	
+	// TODO: get time measurement
+	
+	int x, y, z;
+	Accel.readAccel(&x,&y,&z);
+	snprintf(buffer, 8, "%d", x); // XYZ coords only use 8 bytes to save space
+	Storage.send(buffer);
+	Storage.send(",");
+	snprintf(buffer, 8, "%d", y); // XYZ coords only use 8 bytes to save space
+	Storage.send(buffer);
+	Storage.send(",");
+	snprintf(buffer, 8, "%d", z); // XYZ coords only use 8 bytes to save space
+	Storage.send(buffer);
+	
+	// TODO: get altitude measurement
+	
+	Storage.send(",");
+	snprintf(buffer, 8, "%d", Magno.readx()); // XYZ coords only use 8 bytes to save space
+	Storage.send(buffer);
+	Storage.send(",");
+	snprintf(buffer, 8, "%d", Magno.ready()); // XYZ coords only use 8 bytes to save space
+	Storage.send(buffer);
+	Storage.send(",");
+	snprintf(buffer, 8, "%d", Magno.readz()); // XYZ coords only use 8 bytes to save space
+	Storage.send(buffer);
+	Storage.send("\n");
+	free(buffer);
 }
